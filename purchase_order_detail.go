@@ -33,7 +33,7 @@ type BaseItemDetail struct {
 
 type SupplierPartNum struct {
 	XMLName xml.Name `xml:"SupplierPartNum"`
-	PartID  int      `xml:"PartID"`
+	PartID  string   `xml:"PartID"`
 }
 
 type Quantity struct {
