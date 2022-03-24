@@ -15,7 +15,7 @@ type Date struct {
 }
 
 // MarshalText implements the encoding.TextMarshaler interface.
-// The time is formatted in RFC 3339 format, with sub-second precision added if present.
+// The time is formatted in YYYYMMDD format.
 func (d Date) MarshalText() ([]byte, error) {
 	if y := d.Time.Year(); y < 0 || y >= 10000 {
 		return nil, errors.New("Time.MarshalText: year outside of range [0,9999]")
@@ -26,7 +26,7 @@ func (d Date) MarshalText() ([]byte, error) {
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
-// The time is expected to be in RFC 3339 format.
+// The time is expected to be in YYYYMMDD format.
 func (d *Date) UnmarshalText(data []byte) error {
 	// Fractional seconds are handled implicitly by Parse.
 	var err error
@@ -39,7 +39,7 @@ type DateTime struct {
 }
 
 // MarshalText implements the encoding.TextMarshaler interface.
-// The time is formatted in RFC 3339 format, with sub-second precision added if present.
+// The time is formatted in YYYYMMDDTHH:MM:SS format.
 func (d DateTime) MarshalText() ([]byte, error) {
 	if y := d.Time.Year(); y < 0 || y >= 10000 {
 		return nil, errors.New("Time.MarshalText: year outside of range [0,9999]")
@@ -50,10 +50,15 @@ func (d DateTime) MarshalText() ([]byte, error) {
 }
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
-// The time is expected to be in RFC 3339 format.
+// The time is expected to be in YYYYMMDDTHH:MM:SS format.
 func (d *DateTime) UnmarshalText(data []byte) error {
 	// Fractional seconds are handled implicitly by Parse.
 	var err error
 	(*d).Time, err = time.Parse(DateTimeFormat, string(data))
+	if err == nil {
+		return nil
+	}
+
+	(*d).Time, err = time.Parse(DateFormat, string(data))
 	return err
 }
