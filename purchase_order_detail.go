@@ -10,8 +10,9 @@ type ListOfOrderDetail struct {
 type OrderDetail struct {
 	XMLName                xml.Name               `xml:"OrderDetail"`
 	BaseItemDetail         BaseItemDetail         `xml:"BaseItemDetail"`
-	RequestedDeliveryDate  string                 `xml:"RequestedDeliveryDate"`
-	Tax                    Tax                    `xml:"Tax"`
+	SpecialHandlingNote    string                 `xml:"SpecialHandlingNote,omitempty"`
+	RequestedDeliveryDate  string                 `xml:"RequestedDeliveryDate,omitempty"`
+	Tax                    *Tax                   `xml:"Tax"`
 	BuyerExpectedUnitPrice BuyerExpectedUnitPrice `xml:"BuyerExpectedUnitPrice"`
 }
 

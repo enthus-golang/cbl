@@ -4,7 +4,8 @@ import "encoding/xml"
 
 type OrderHeader struct {
 	XMLName                xml.Name       `xml:"OrderHeader"`
-	POIssuedDate           string         `xml:"POIssuedDate"`
+	POIssuedDate           DateTime       `xml:"POIssuedDate"`
+	ShipByDate             *DateTime      `xml:"ShipByDate"`
 	OrderReference         OrderReference `xml:"OrderReference"`
 	OrderParty             OrderParty     `xml:"OrderParty"`
 	OrderCurrency          string         `xml:"OrderCurrency"`
@@ -14,19 +15,32 @@ type OrderHeader struct {
 }
 
 type OrderReference struct {
-	XMLName              xml.Name             `xml:"OrderReference"`
-	BuyerReferenceNumber BuyerReferenceNumber `xml:"BuyerRefNum"`
-	ListOfReferenceCoded ListOfReferenceCoded `xml:"ListOfReferenceCoded"`
+	XMLName                 xml.Name                 `xml:"OrderReference"`
+	AccountCode             *AccountCode             `xml:"AccountCode"`
+	BuyerReferenceNumber    BuyerReferenceNumber     `xml:"BuyerRefNum"`
+	SupplierReferenceNumber *SupplierReferenceNumber `xml:"SupplierRefNum"`
+	ListOfReferenceCoded    ListOfReferenceCoded     `xml:"ListOfReferenceCoded"`
+}
+
+type AccountCode struct {
+	XMLName   xml.Name  `xml:"AccountCode"`
+	Reference Reference `xml:"Reference"`
 }
 
 type BuyerReferenceNumber struct {
-	XMLName   xml.Name       `xml:"BuyerRefNum"`
-	Reference BuyerReference `xml:"Reference"`
+	XMLName   xml.Name  `xml:"BuyerRefNum"`
+	Reference Reference `xml:"Reference"`
 }
 
-type BuyerReference struct {
-	XMLName         xml.Name `xml:"Reference"`
-	ReferenceNumber string   `xml:"RefNum"`
+type SupplierReferenceNumber struct {
+	XMLName   xml.Name  `xml:"SupplierRefNum"`
+	Reference Reference `xml:"Reference"`
+}
+
+type Reference struct {
+	XMLName         xml.Name  `xml:"Reference"`
+	ReferenceNumber string    `xml:"RefNum"`
+	ReferenceDate   *DateTime `xml:"RefDate"`
 }
 
 type ListOfReferenceCoded struct {
