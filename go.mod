@@ -1,3 +1,3 @@
-module gitlab.com/mclgmbh/golang-pkg/cbl
+module github.com/enthus-golang/cbl
 
-go 1.18
+go 1.22
