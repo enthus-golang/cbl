@@ -1,3 +1,3 @@
 module github.com/enthus-golang/cbl
 
-go 1.22
+go 1.24
